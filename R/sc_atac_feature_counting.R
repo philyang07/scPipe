@@ -368,7 +368,7 @@ sc_atac_feature_counting <- function(
   
   # call sc_atac_cell_callling.R here : emptyDrops() function currently implemented
   if(cell_calling =="emptydrops" || cell_calling =="cellranger" || cell_calling =="filter"){
-    cat("calling `EmptyDrops` function for cell calling ... \n")
+    cat("calling `cell_calling` function for cell calling ... \n")
     matrixData <- sc_atac_cell_calling(mat = matrixData, cell_calling = 'emptydrops', output_folder = output_folder)
   }
   
@@ -376,8 +376,8 @@ sc_atac_feature_counting <- function(
   sparseM <- Matrix(matrixData, sparse=TRUE)
   # add dimensions of the sparse matrix if available
   if(cell_calling != FALSE){
-    barcodes <- file.path(paste0(output_folder, '/non_empty_barcodes.txt'))
-    features <- read.table(paste0(output_folder, '/non_empty_features.txt'))
+    barcodes <- read.table(paste0(output_folder, '/non_empty_barcodes.txt'))$V1
+    features <- read.table(paste0(output_folder, '/non_empty_features.txt'))$V1
     dimnames(sparseM)  <-  list(features, barcodes)
   }
   
